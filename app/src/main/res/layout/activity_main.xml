@@ -10,7 +10,7 @@
         android:id="@+id/etCalulations"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Ingresa numeros"
+        android:textAlignment="textEnd"
         android:ems="10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
