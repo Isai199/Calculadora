@@ -11,6 +11,8 @@ import com.calculadora.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var  binding:ActivityMainBinding
+    var firtValue: Double = 0.0
+    var operator: Char = '0'
     override fun onCreate(savedInstanceState: Bundle?) {
         //por defecto
         super.onCreate(savedInstanceState)
@@ -33,6 +35,52 @@ class MainActivity : AppCompatActivity() {
         binding.btnDelete.setOnClickListener{
             binding.etCalulations.setText(binding.etCalulations.text.dropLast(1))
         }
+
+        binding.btnEqual.setOnClickListener{
+            when(operator){
+                '+' -> { binding.etCalulations.setText("${firtValue + binding.etCalulations.text.toString().toDouble()}") }
+                'x' -> { binding.etCalulations.setText("${firtValue * binding.etCalulations.text.toString().toDouble()}") }
+                '÷' -> { binding.etCalulations.setText("${firtValue / binding.etCalulations.text.toString().toDouble()}") }
+                '-' -> { binding.etCalulations.setText("${firtValue - binding.etCalulations.text.toString().toDouble()}") }
+                else -> binding.etCalulations.setText("ERROR")
+
+            }
+            operator = '0'
+        }
+
+        binding.btnPorsentaje.setOnClickListener{
+            //TODO ejemplo propina 200+10% = 220
+
+            binding.etCalulations.setText( porcentage(operator))
+        }
+
+
+    }
+    fun porcentage(operatorToUse: Char) : String{
+        when(operatorToUse){
+            '+' -> {return "${firtValue + (firtValue*binding.etCalulations.text.toString().toDouble()/100)}"}
+            '-' -> {return "${firtValue - (firtValue*binding.etCalulations.text.toString().toDouble()/100)}"}
+            '0' -> {return "${binding.etCalulations.text.toString().toDouble()}"}
+            else -> { return  "Error"}
+        }
+    }
+
+    fun getOperator(view: View){
+        val button = view as Button
+        //forma 1
+        operator = button.text.get(0)
+        //forma 2
+        /*
+        operator = when(button.id){
+            binding.btnDivision.id -> {'÷'}
+            binding.btnMultiplicacion.id -> {'x'}
+            binding.btnSuma.id -> {'+'}
+            binding.btnResta.id -> {'-'}
+            else -> { '0' }
+        }*/
+
+        firtValue = binding.etCalulations.text.toString().toDouble()
+        binding.etCalulations.text.clear()
 
 
     }
